@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<style>
+		html{
+			height:100%;
+		}
+		body{
+			margin:0;
+			height:100%;
+			color:#552100;
+		}
+		#mask{
+			height:100%;
+			background: url(img/bg.jpg);
+			background-size:cover;
+			filter:blur(1px);
+		}
+		.drog{
+			width:520px;
+			height: 640px;
+			background: rgba(255,255,255,.8);
+			position: absolute;
+			left:50%;
+			top:50%;
+			margin-left:-260px;
+			margin-top:-320px;
+			border:1px solid #fff;
+			background-clip:content-box;
+			padding:10px;
+			border-radius:10px;
+		}
+		h2{
+			margin:0;
+		}
+		.title{
+			text-align: center;
+			fontsize:28px;
+			margin:24px 0;
+			color:#362e2b;
+			/*background:linear-gradient(
+                transparent 49%,
+                #000 49%,
+                #000 51%,
+                transparent 51%
+			);*/
+			display: flex;
+		}
+		.title .line{
+			background:linear-gradient(
+                transparent 49%,
+                #000 49%,
+                #000 51%,
+                transparent 51%
+			);
+			flex:1;
+		}
+		.title .title-name{
+			padding:0 20px;
+			/*background: rgba(255,255,255,.8);*/   
+			/* 如果像注释的这样写，会有背景颜色无法完美的一个现象，所以再加两个span,并利用弹性盒模型 */
+		}
+
+		table{
+			width: 100%;
+		}
+		tr{height: 65px;}
+		.td_left{
+			width: 150px;
+			text-align:right;
+			font-size:18px;
+		}
+		/*文本输入框样式*/
+		.drog input{outline: none;}
+		.drog input[type="text"],
+		.drog input[type="passworld"]{
+			width: 230px;
+			height: 40px;
+			background: transparent;
+			border:none;
+			border-bottom:2px solid #999;
+			text-indent:20px;
+			transition:.5s;
+		}
+		.drog input[type="text"]:focus,
+		.drog input[type="passworld"]:focus{
+			border-bottom-color: #562d2b;
+		}
+		.drog input[type="text"]::-webkit-input-placeholder,
+		.drog input[type="passworld"]::-webkit-input-placeholder{
+			transition:.5s;
+			transform-origin: left top;
+			font-size:14px;
+		}
+		.drog input[type="text"]::-moz-placeholder,
+		.drog input[type="passworld"]::-moz-placeholder{
+			transition: .5s;
+			transform-origin: left top;
+			font-size:14px;
+		}
+		.drog input[type="text"]:-ms-input-placeholder,
+		.drog input[type="passworld"]:-ms-input-placeholder{
+			transition: .5s;
+			transform-origin: left top;
+			font-size:14px;
+		}
+		.drog input[type="text"]:focus::-webkit-input-placeholder,
+		.drog input[type="passworld"]:focus::-webkit-input-placeholder{
+			transform:scale(.8) translateY(-15px);
+		}
+		.drog input[type="text"]:focus::-moz-placeholder,
+		.drog input[type="passworld"]:focus::-moz-placeholder{
+			transform:scale(.8) translateY(-15px);
+
+		}
+		.drog input[type="text"]:focus:-ms-input-placeholder,
+		.drog input[type="passworld"]:focus:-ms-input-placeholder{
+			transform:scale(.8) translateY(-15px);
+		}
+
+
+		/*性别单选样式*/
+		input[name="gender"]{
+			display: none;
+		}
+		.sex{
+			padding-left:30px;
+			position: relative;
+		}
+		.sex:before{
+			content:'';
+			display: inline-block;
+			width: 8px;
+			height: 8px;
+			/*background: red;*/
+			border:1px solid #000;
+			border-radius: 50%;
+			position: absolute;
+			right:22px;
+			top:1px;
+			padding: 5px;
+			
+		}
+		input[name="gender"]:checked + label:before{
+			background: #362e2b;
+			background-clip:content-box;
+
+		}
+		/*菜系多选按钮样式*/
+		.menu{
+			display: inline-block;
+			content:'';
+			width: 15px;
+			height: 15px;
+			border:1px solid #000;
+			border-radius:3px;
+			margin-right:5px;
+			position: relative;
+		}
+		input[name="food"]{
+			display: none;
+		}
+		input[name="food"]:checked+label:before{
+			content:'';
+			display: inline-block;
+			width: 2px;
+			height: 6px;
+			background: #000;
+			transform: rotate(135deg);
+			position: absolute;
+			top:10px;
+			left:4px;
+
+		}
+		input[name="food"]:checked+label:after{
+			content:'';
+			display: inline-block;
+			width: 2px;
+			height: 15px;
+			background: #000;
+			transform: rotate(20deg);
+			position: absolute;
+			top:2px;
+			left:10px;
+
+		}
+		/*下面的*/
+		textarea{
+	        width: 254px;
+	        height: 100px;
+	    }
+	    .btn input{
+	        width:100px;
+	        height: 30px;
+	        background: #362e2b;
+	        color: #fff;
+	    }
+	    tr.des{
+	        height: 120px;
+	    }
+	</style>
+</head>
+<body>
+	<div id="mask">
+	</div>
+	<div class="drog">
+		<h2 class="title">
+			<span class="line"></span>
+			<span class="title-name">用户注册</span>
+			<span class="line"></span>
+
+		</h2>
+		<table>
+			<tbody>
+				<tr>
+					<td class="td_left">姓名：</td>
+					<td><input type="text" placeholder="请输入4-12个字符"></td>
+				</tr>
+				<tr>
+					<td class="td_left">密码：</td>
+					<td><input type="passworld" placeholder="请输入密码"></td>
+				</tr>
+				<tr>
+					<td class="td_left">确认密码：</td>
+					<td><input type="passworld" placeholder="请再次输入密码"></td>
+				</tr>
+				<tr>
+					<td class="td_left">性别：</td>
+					<td>
+						<input id="man" type="radio" name="gender"> 
+						<label class="sex" for="man">男</label>
+						<input id="woman" type="radio" name="gender">  
+						<label class="sex" for="woman">女</label>
+					</td>
+				</tr>
+				<tr>
+					<td class="td_left">爱好菜系选择：</td>
+					<td>
+						<input id="food_c" type="checkbox" name="food">
+						<label class="menu" for="food_c"></label>川菜
+						<input id="food_d" type="checkbox" name="food">
+						<label class="menu" for="food_d"></label>湘菜
+						<input id="food_e" type="checkbox" name="food">
+						<label class="menu" for="food_e"></label>苏菜
+						<input id="food_f" type="checkbox" name="food">
+						<label class="menu" for="food_f"></label>粤菜
+						<input id="food_g" type="checkbox" name="food">
+						<label class="menu" for="food_g"></label>魯菜
+						<input id="food_h" type="checkbox" name="food">
+						<label class="menu" for="food_h"></label>徽菜
+						<input id="food_i" type="checkbox" name="food">
+						<label class="menu" for="food_i"></label>浙菜
+					</td>
+				</tr>
+				<tr class="des">
+					<td class="td_left">个人简介:</td>
+					<td >
+						<textarea></textarea>  
+					</td>
+				</tr>
+				<tr>
+					<td class="td_left"></td>
+					<td class="btn">
+						<input type="submit" value="提交"> 
+						<input type="reset" value="重置">   
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<!-- 
+		background-size : 背景的大小
+	        cover  覆盖
+	        会铺满当前的屏幕
+
+    	filter :滤镜
+        	blur：模糊 ， 默认0
+     -->
+     <!--
+		flex:宽度
+		根据当前 富裕宽度（剩余可利用空间）/ flex总和 = 当前一份的
+     -->
+</body>
+</html>
